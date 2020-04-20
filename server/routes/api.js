@@ -1,6 +1,23 @@
 const express = require("express")
 const router = express.Router()
 const Guess = require("../models/Guess")
+const User = require("../models/User")
+
+// Check authentication for user endpoint
+const checkAuth = (req, res, next) => {
+  if(!req.user){
+    res.status(401).json({
+      status: 'Unauthorized',
+      message: 'This request requires authentication.'
+    })
+  } else {
+    next()
+  }
+}
+
+/**
+ * Guess endpoint
+ */
 
 // GET the guesses
 router.get('/guess', (req, res) => {
@@ -10,8 +27,8 @@ router.get('/guess', (req, res) => {
   })
   .catch(err => {
     res.status(500).json({
-      message: 'Problem getting data',
-      error: err
+      status: 'Problem getting data',
+      message: err
     })
   })
 })
@@ -31,8 +48,8 @@ router.post('/guess/new', (req, res) => {
   })
   .catch(err => {
     res.status(500).json({
-      message: "Problem with the delete",
-      error: err
+      status: "Problem with the delete",
+      message: err
     })
   })
 }) 
@@ -45,8 +62,26 @@ router.delete('/guess/:id', (req, res) => {
   })
   .catch(err => {
     res.status(500).json({
-      message: "Problem with the delete",
-      error: err
+      status: "Problem with the delete",
+      message: err
+    })
+  })
+})
+
+/**
+ * Users endpoint
+ */
+
+// Get an authenticated user's profile
+router.get('/user', checkAuth, (req, res) => {
+  User.findById(req.user.id)
+  .then(value => {
+    res.status(200).send(value)
+  })
+  .catch(error => {
+    res.status(500).json({
+      status: "Problem getting the requested information",
+      message: error
     })
   })
 })
