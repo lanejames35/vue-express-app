@@ -36,7 +36,10 @@ mongoose.connection.on('error', error => {
 
 // Server middleware
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true
+}))
 app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: process.env.SESSION_PASS,
