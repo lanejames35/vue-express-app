@@ -44,7 +44,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: process.env.SESSION_PASS,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 8 * 60 * 60 * 1000,
     httpOnly: true,
@@ -61,6 +61,11 @@ app.use('/auth', auth)
 app.get('/', (req, res) => {
   res.send("Hello World!")
 })
+app.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('http://localhost:8080')
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
