@@ -15,7 +15,6 @@ passport.deserializeUser((id, done) => {
   )
 })
 
-
 passport.use(new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
