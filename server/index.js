@@ -7,11 +7,8 @@ const MongoStore = require("connect-mongo")(session)
 const mongoose = require("mongoose")
 const passport = require("passport")
 
-const PORT = process.env.PORT || 5000
-
 // Initialize the server
 const app = express()
-
 
 // Connect the routes
 const api = require("./routes/api")
@@ -58,14 +55,17 @@ app.use(passport.session())
 app.use('/api', api)
 app.use('/auth', auth)
 
-app.get('/', (req, res) => {
-  res.send("Hello World!")
-})
-app.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect('http://localhost:8080')
-})
+// Handle production
+if(process.env.NODE_ENV === 'production') {
+  // Static folder
+  app.use(express.static(__dirname + '/public'))
+
+  //Handle SPA
+  app.use(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
+}
+
+const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`)
 })

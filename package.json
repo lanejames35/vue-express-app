@@ -4,7 +4,8 @@
   "description": "A fun guessing game built with Node",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./server/index.js"
+    "dev": "nodemon ./server/index.js",
+    "start": "node server/index.js"
   },
   "author": "James Lane",
   "license": "ISC",
