@@ -66,7 +66,6 @@ app.get('/logout', (req, res) => {
   res.redirect('http://localhost:8080')
 })
 
-
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })

@@ -34,7 +34,7 @@ router.get('/guess', (req, res) => {
 })
 
 // POST a guess
-router.post('/guess/new', (req, res) => {
+router.post('/guess/new', checkAuth, (req, res) => {
   new Guess({
     author: req.body.author,
     birthday: req.body.birthday,
@@ -55,7 +55,7 @@ router.post('/guess/new', (req, res) => {
 }) 
 
 // DELETE a guess
-router.delete('/guess/:id', (req, res) => {
+router.delete('/guess/:id', checkAuth, (req, res) => {
   Guess.findOneAndDelete({ _id: req.params.id })
   .then(value => {
     res.status(200).send(value)  
