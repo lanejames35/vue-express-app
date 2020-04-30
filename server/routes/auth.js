@@ -13,13 +13,13 @@ router.get(
   passport.authenticate('google'),
   (req, res) => {
     console.log('Current User: ', req.user)
-    res.redirect('http://localhost:8080/')
+    res.redirect('/')
   }
 )
 
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('http://localhost:8080')
+  res.redirect('/')
 })
 
 module.exports = router

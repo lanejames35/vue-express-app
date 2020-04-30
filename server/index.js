@@ -34,7 +34,7 @@ mongoose.connection.on('error', error => {
 // Server middleware
 app.use(bodyParser.json())
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: 'https://hartbabypool.xyz',
   credentials: true
 }))
 app.use(session({
