@@ -37,6 +37,7 @@ app.use(cors({
   origin: 'https://hartbabypool.xyz',
   credentials: true
 }))
+app.use('trust proxy', 1)
 app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: process.env.SESSION_PASS,
@@ -45,7 +46,8 @@ app.use(session({
   cookie: {
     maxAge: 8 * 60 * 60 * 1000,
     httpOnly: true,
-    secure: true
+    secure: true,
+    sameSite: true
   }
 }))
 app.use(passport.initialize())
