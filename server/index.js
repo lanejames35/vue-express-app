@@ -45,7 +45,7 @@ app.use(session({
   cookie: {
     maxAge: 8 * 60 * 60 * 1000,
     httpOnly: true,
-    secure: false // Change to true over HTTPS
+    secure: true
   }
 }))
 app.use(passport.initialize())
