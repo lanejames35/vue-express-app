@@ -9,6 +9,7 @@ const passport = require("passport")
 
 // Initialize the server
 const app = express()
+app.set('trust proxy', 1)
 
 // Connect the routes
 const api = require("./routes/api")
@@ -37,7 +38,6 @@ app.use(cors({
   origin: 'https://hartbabypool.xyz',
   credentials: true
 }))
-app.use('trust proxy', 1)
 app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: process.env.SESSION_PASS,
